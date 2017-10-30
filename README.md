@@ -1,3 +1,45 @@
+## Using this project
+
+This project leverages a plugin for Cocoapods called [cocoapods-keys](https://github.com/orta/cocoapods-keys). As such, the keys are not present in this git repository, and you'll have to follow these directions to get set up:
+
+### Step 1: Install required gems
+
+```
+$ bundle install
+```
+
+This will install cocoapods and the plugin we're using.
+
+### Step 2: Run pod install (maybe twice)
+
+The key requirement is already specified in the `Podfile`, but you don't have it yet. Running `pod install` will prompt you for a key to use.
+
+Once you enter it, it will show up in your keychain.
+
+Double check that `Pods/CocoaPodsKeys/ManagingSecretsKeys.m` does not look empty. If it does, you may have to run `pod install` again after entering the key the first time.
+
+### Step 3: Open the workspace
+
+At this point you should be able to open the workspace and build the project.
+
+## Alternative Approach
+
+Delete the key above with `pod keys rm MySecretApiKey`. This will remove it from your project. Then run `rm -rf Pods/CocoaPodsKeys` to delete the generated keys helper class.
+
+Add the key to an environment file:
+
+```
+echo MyServiceApiKey=someOtherVaLuE >> .env
+```
+
+Then run `pod install` again. It should use the `.env` file and not prompt you for a key.
+
+This approach works well for CI environments.
+
+## Do not check in secrets
+
+It is important that both the `.env` file and the `Pods/CocoaPodsKeys` folder _not_ ever be committed to git. These files should be distributed privately to new machines/developers.
+
 ## Sample Code
 
 This code is part of an [NSScreencast](http://nsscreencast.com) episode.

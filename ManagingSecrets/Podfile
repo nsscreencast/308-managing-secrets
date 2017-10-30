@@ -1,0 +1,13 @@
+platform :ios, '11.0'
+
+plugin 'cocoapods-keys', {
+  project: 'ManagingSecrets',
+  keys: [
+    'MyServiceApiKey'
+  ]
+}
+
+target 'ManagingSecrets' do
+  use_frameworks!
+
+end
